@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path
-from api.views import home
+from api import views
+
 urlpatterns = [
-    path('',home.as_view()),
+    path('',views.home.as_view()),
+    path('apifun',views.apifun.as_view()),
+ 	path('apifun/<int:pk>',views.apifun.as_view()),
+       
 ]
