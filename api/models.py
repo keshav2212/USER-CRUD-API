@@ -1,7 +1,7 @@
 from django.db import models
 class Member(models.Model):
 	name=models.CharField(max_length=100)
-	number=models.IntegerField()
+	number=models.BigIntegerField()
 	email=models.EmailField()
 	date=models.DateField()
 	is_hr=models.BooleanField()
