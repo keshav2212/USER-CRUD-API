@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 @method_decorator(csrf_exempt,name='dispatch')
 class home(View):
@@ -72,7 +72,7 @@ class home(View):
 
 @method_decorator(csrf_exempt,name='dispatch')
 class apifun(APIView):
-	authentication_classes=[BasicAuthentication]
+	authentication_classes=[TokenAuthentication]
 	permission_classes=[IsAdminUser]
 	def get(self,request,pk=None,format=None):
 		if pk is not None:
