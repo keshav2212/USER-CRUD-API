@@ -72,9 +72,10 @@ class home(View):
 		return JsonResponse({'Success':"Member Deleted Successfully"})
 
 @method_decorator(csrf_exempt,name='dispatch')
+
 class apifun(APIView):
 	authentication_classes=[TokenAuthentication]
-	permission_classes=[IsAdminUser]
+	permission_classes=[IsAuthenticated]
 	def get(self,request,pk=None,format=None):
 		if pk is not None:
 			try:
