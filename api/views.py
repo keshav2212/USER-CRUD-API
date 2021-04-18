@@ -12,6 +12,7 @@ from rest_framework import status
 from time import sleep
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 @method_decorator(csrf_exempt,name='dispatch')
 class home(View):
@@ -74,7 +75,7 @@ class home(View):
 @method_decorator(csrf_exempt,name='dispatch')
 
 class apifun(APIView):
-	authentication_classes=[TokenAuthentication]
+	authentication_classes=[JWTAuthentication]
 	permission_classes=[IsAuthenticated]
 	def get(self,request,pk=None,format=None):
 		if pk is not None:
@@ -92,7 +93,9 @@ class apifun(APIView):
 		serializer=MemberSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
-			return Response({'Success':"Member Created Successfully"},status=status.HTTP_201_CREATED)
+			print(dir(serializer))
+			name=serializer.validated_data['name']
+			return Response({'Success':"%s Created Successfully"%name},status=status.HTTP_201_CREATED)
 		else:
 			return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 	def put(self,request,pk,format=None):
@@ -116,5 +119,4 @@ class apifun(APIView):
 		mem=Member.objects.get(id=pk)
 		mem.delete()
 		return Response({'Success':"Member Deleted Successfully"})
-
 # Create your views here.

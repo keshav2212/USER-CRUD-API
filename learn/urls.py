@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from api.auth import CustomAuthToken
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView,TokenVerifyView
 from django.views.decorators.csrf import csrf_exempt
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('api.urls')),
-    path('gettoken/',CustomAuthToken.as_view()),
-]
+    #path('gettoken/',CustomAuthToken.as_view()),
+    path('gettoken/',TokenObtainPairView.as_view(),name='token_obtain_pair'),
+    path('refreshtoken/',TokenRefreshView.as_view(),name='token_refresh'),
+    path('verifytoken/',TokenVerifyView.as_view(),name='verify_token'),
+    ]

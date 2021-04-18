@@ -11,7 +11,7 @@ class Member(models.Model):
 	is_hr=models.BooleanField()
 	def __str__(self):
 		return self.name
-
+		
 @receiver(post_save,sender=User)
 def create_token(sender,instance=None,created=None,**kwargs):
 	if created:

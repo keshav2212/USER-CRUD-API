@@ -1,11 +1,12 @@
 import requests
 import json
+s="af02102facdee9f7206ac038f68807c137de8e8b"
+
 def get():
 	url='http://127.0.0.1:8000/apifun'
 	print("Enter ID (default all): ")
 	x=input()
 	n=None
-	s="af02102facdee9f7206ac038f68807c137de8e8b"
 	try:
 		n=int(x)
 	except:
@@ -31,6 +32,9 @@ def post():
 	date=input()
 	print("Is Hr (default False): ")
 	hr=bool(input())
+	headers={
+		'Authorization':'Token %s'%s,
+	}
 	data={
 		'name':name,
 		'number':number,
@@ -39,7 +43,7 @@ def post():
 		'is_hr':hr,
 	}
 	data=json.dumps(data)
-	r=requests.post(url=url,data=data)
+	r=requests.post(url=url,headers=headers,data=data)
 	print(r.json())
 def put():
 	url='http://127.0.0.1:8000/'
